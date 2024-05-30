@@ -16,6 +16,12 @@ class DatabaseHelper:
             autocommit = False,
             expire_on_commit = False,
         )
+    def get_db(self):
+        db = self.SessionLocal()
+        try:
+            yield db
+        finally:
+            db.close()
 
 db_helper = DatabaseHelper(
     url = settings.db_url, 
